@@ -20,7 +20,7 @@ pipeline {
 				sh 'mvn --version'
 				sh 'docker version'
 				echo "PATH - $PATH"
-				echo "Building"
+				echo "Checkout"
 			}
 		}
 		stage('Compile') {
