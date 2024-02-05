@@ -59,7 +59,7 @@ pipeline {
 			steps {
 				echo "Docker image push"
 				script {
-					docker.withRegistry('', 'docker hub') {
+					docker.withRegistry('', 'dockerhub') {
 						dockerImage.push('')
 						dockerImage.push("${env.BUILD_TAG}")
 					}
