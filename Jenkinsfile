@@ -51,7 +51,7 @@ pipeline {
 			steps {
 				echo "Docker build"
 				script {
-					dockerImage = docker.build("pradiptab/ms-test:${env.BUILD_TAG}")
+					dockerImage = docker.build("pradiptab/ms-test:${env.BUILD_NUMBER}")
 				}
 			}
 		}
@@ -60,8 +60,8 @@ pipeline {
 				echo "Docker image push"
 				script {
 					docker.withRegistry('', 'dockerhub') {
-						dockerImage.push('')
-						dockerImage.push("${env.BUILD_TAG}")
+						dockerImage.push("${env.BUILD_NUMBER}")
+						dockerImage.push("latest")
 					}
 				}
 			}
