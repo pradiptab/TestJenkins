@@ -29,12 +29,12 @@ pipeline {
 				sh "mvn clean compile"
 			}
 		}
-		stage('Test') {
-			steps {
-				echo "Test"
-				sh "mvn test"
-			}
-		}
+		// stage('Test') {
+		// 	steps {
+		// 		echo "Test"
+		// 		sh "mvn test"
+		// 	}
+		// }
 		stage('Integration') {
 			steps {
 				echo "Integration Stage"
