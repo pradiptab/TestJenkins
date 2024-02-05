@@ -35,12 +35,12 @@ pipeline {
 		// 		sh "mvn test"
 		// 	}
 		// }
-		// stage('Integration') {
-		// 	steps {
-		// 		echo "Integration Stage"
-		// 		sh "mvn failsafe:integration-test failsafe:verify"
-		// 	}
-		// }
+		stage('Integration') {
+			steps {
+				echo "Integration Stage"
+				sh "mvn failsafe:integration-test failsafe:verify"
+			}
+		}
 		stage('Package') {
 			steps {
 				echo "Package"
@@ -60,7 +60,7 @@ pipeline {
 				echo "Docker image push"
 				script {
 					docker.withRegistry('', 'dockerhub') {
-						dockerImage.push("${env.BUILD_NUMBER}")
+						dockerImage.push("1.0.${env.BUILD_NUMBER}")
 						dockerImage.push("latest")
 					}
 				}
