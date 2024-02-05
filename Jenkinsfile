@@ -26,19 +26,19 @@ pipeline {
 		stage('Compile') {
 			steps {
 				echo "Compile"
-				sh "man clean compile"
+				sh "mvn clean compile"
 			}
 		}
 		stage('Test') {
 			steps {
 				echo "Test"
-				sh "man test"
+				sh "mvn test"
 			}
 		}
 		stage('Integration') {
 			steps {
 				echo "Integration Stage"
-				sh "man failsafe:integration-test failsafe:verify"
+				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
 	}
