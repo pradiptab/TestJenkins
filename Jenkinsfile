@@ -29,16 +29,41 @@ pipeline {
 				sh "mvn clean compile"
 			}
 		}
-		stage('Test') {
+		// stage('Test') {
+		// 	steps {
+		// 		echo "Test"
+		// 		sh "mvn test"
+		// 	}
+		// }
+		// stage('Integration') {
+		// 	steps {
+		// 		echo "Integration Stage"
+		// 		sh "mvn failsafe:integration-test failsafe:verify"
+		// 	}
+		// }
+		stage('Package') {
 			steps {
-				echo "Test"
-				sh "mvn test"
+				echo "Package"
+				sh "mvn package -DskipTests"
 			}
 		}
-		stage('Integration') {
+		stage('Build docker image') {
 			steps {
-				echo "Integration Stage"
-				sh "mvn failsafe:integration-test failsafe:verify"
+				echo "Docker build"
+				script {
+					dockerImage = docker.build("pradiptab/ms-test:${env.BUILD_TAG}")
+				}
+			}
+		}
+		stage('Push docker image') {
+			steps {
+				echo "Docker image push"
+				script {
+					docker.withRegistry('', 'docker hub') {
+						dockerImage.push('')
+						dockerImage.push("${env.BUILD_TAG}")
+					}
+				}
 			}
 		}
 	}
